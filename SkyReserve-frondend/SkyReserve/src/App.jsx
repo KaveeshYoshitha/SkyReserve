@@ -5,6 +5,9 @@ import Book from "./pages/Book";
 import Navbar from "./components/Navbar";
 import SignUp from "./pages/SignUp";
 import Deals from "./pages/Deals";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
               <Home />
               <Book />
               <Deals />
+              <About />
+              <Contact />
+              <Footer />
             </>
           }
         />

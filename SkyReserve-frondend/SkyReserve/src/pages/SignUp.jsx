@@ -1,7 +1,41 @@
-import { Link } from "react-router-dom"; // Import Link for routing
+import { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate for routing
 import loginBackground from "../assets/Login-Background.png"; // Update with your image path
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+    password: "",
+    phone: "",
+    language: "",
+    country: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/signup",
+        formData
+      );
+      alert(response.data);
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
+  };
+
   return (
     <div className="flex h-screen">
       {/* Left Section for Image */}
@@ -29,11 +63,13 @@ const SignUp = () => {
           </div>
 
           {/* Form Fields */}
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
                 name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 placeholder="First Name"
                 required
@@ -41,6 +77,8 @@ const SignUp = () => {
               <input
                 type="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 placeholder="Email"
                 required
@@ -51,6 +89,8 @@ const SignUp = () => {
               <input
                 type="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 placeholder="Password"
                 required
@@ -58,6 +98,8 @@ const SignUp = () => {
               <input
                 type="tel"
                 name="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 placeholder="Phone Number"
                 required
@@ -67,24 +109,28 @@ const SignUp = () => {
             <div className="grid grid-cols-2 gap-4">
               <select
                 name="language"
+                value={formData.language}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 required
               >
                 <option value="" disabled selected>
                   Language
                 </option>
-                <option value="en">English</option>
-                <option value="es">Sinhala</option>
+                <option value="english">English</option>
+                <option value="sinhala">Sinhala</option>
               </select>
               <select
                 name="country"
+                value={formData.country}
+                onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2"
                 required
               >
                 <option value="" disabled selected>
                   Country
                 </option>
-                <option value="ES">Sri Lanka</option>
+                <option value="SriLanka">Sri Lanka</option>
               </select>
             </div>
 
