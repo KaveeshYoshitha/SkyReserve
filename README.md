@@ -33,6 +33,10 @@ booking flights and retrieving or updating specific bookings by ID.
   # 02. Check user (Login purpose)
     URL -> http://localhost:8080/api/auth/login
     Method -> POST
+    Body -> {
+    "email": "user123@gmail.com",
+    "password": "123"
+    }
   # 03. Create Booking
     URL -> http://localhost:8080/api/bookFlight
     Method -> POST
